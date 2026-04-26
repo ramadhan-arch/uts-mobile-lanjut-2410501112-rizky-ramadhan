@@ -1,8 +1,9 @@
-import { Ionicons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
+import { Ionicons } from '@expo/vector-icons';
 import { BookProvider } from './src/context/BookContext';
+import colors from './src/constants/colors';
 
 import HomeScreen from './src/screens/HomeScreen';
 import DetailScreen from './src/screens/DetailScreen';
@@ -15,14 +16,24 @@ const Stack = createStackNavigator();
 
 function HomeStack() {
   return (
-    <Stack.Navigator>
-      <Stack.Screen 
-        name="Home" 
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: colors.card,
+        },
+        headerTintColor: colors.text,
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+      }}
+    >
+      <Stack.Screen
+        name="Home"
         component={HomeScreen}
         options={{ title: 'BookShelf' }}
       />
-      <Stack.Screen 
-        name="Detail" 
+      <Stack.Screen
+        name="Detail"
         component={DetailScreen}
         options={{ title: 'Detail Buku' }}
       />
@@ -38,7 +49,6 @@ export default function App() {
           screenOptions={({ route }) => ({
             tabBarIcon: ({ focused, color, size }) => {
               let iconName;
-
               if (route.name === 'HomeTab') {
                 iconName = focused ? 'home' : 'home-outline';
               } else if (route.name === 'Favorites') {
@@ -48,33 +58,47 @@ export default function App() {
               } else if (route.name === 'About') {
                 iconName = focused ? 'person' : 'person-outline';
               }
-
               return <Ionicons name={iconName} size={size} color={color} />;
             },
-            tabBarActiveTintColor: '#2563EB',
-            tabBarInactiveTintColor: '#64748B',
+            tabBarActiveTintColor: colors.primary,
+            tabBarInactiveTintColor: colors.subtext,
+            tabBarStyle: {
+            backgroundColor: colors.card,
+            borderTopColor: colors.border,
+            borderTopWidth: 1,
+            height: 80,
+            paddingBottom: 24,
+            paddingTop: 8,
+            },          
+            headerStyle: {
+              backgroundColor: colors.card,
+            },
+            headerTintColor: colors.text,
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
           })}
-          >
-          <Tab.Screen 
-            name="HomeTab" 
+        >
+          <Tab.Screen
+            name="HomeTab"
             component={HomeStack}
-            options={{ 
+            options={{
               title: 'Home',
-              headerShown: false 
+              headerShown: false,
             }}
           />
-          <Tab.Screen 
-            name="Favorites" 
+          <Tab.Screen
+            name="Favorites"
             component={FavoritesScreen}
             options={{ title: 'Favorit' }}
           />
-          <Tab.Screen 
-            name="Search" 
+          <Tab.Screen
+            name="Search"
             component={SearchScreen}
             options={{ title: 'Cari' }}
           />
-          <Tab.Screen 
-            name="About" 
+          <Tab.Screen
+            name="About"
             component={AboutScreen}
             options={{ title: 'About' }}
           />

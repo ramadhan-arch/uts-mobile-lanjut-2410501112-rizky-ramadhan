@@ -2,7 +2,7 @@ import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import colors from '../constants/colors';
 
 export default function BookCard({ book, onPress }) {
-  const coverId = book.cover_id || (book.cover_edition_key ? book.cover_edition_key : null);
+  const coverId = book.cover_id || null;
   const coverUrl = coverId
     ? `https://covers.openlibrary.org/b/id/${coverId}-M.jpg`
     : null;
@@ -13,17 +13,19 @@ export default function BookCard({ book, onPress }) {
         <Image source={{ uri: coverUrl }} style={styles.cover} />
       ) : (
         <View style={styles.noCover}>
-          <Text style={styles.noCoverText}>No Cover</Text>
+          <Text style={styles.noCoverText}>📚</Text>
         </View>
       )}
       <View style={styles.info}>
         <Text style={styles.title} numberOfLines={2}>{book.title}</Text>
         <Text style={styles.author} numberOfLines={1}>
-          {book.authors?.[0]?.name || 'Unknown Author'}
+          ✍️ {book.authors?.[0]?.name || 'Unknown'}
         </Text>
-        <Text style={styles.year}>
-          {book.first_publish_year || 'N/A'}
-        </Text>
+        <View style={styles.yearBadge}>
+          <Text style={styles.yearText}>
+            📅 {book.first_publish_year || 'N/A'}
+          </Text>
+        </View>
       </View>
     </TouchableOpacity>
   );
@@ -31,54 +33,58 @@ export default function BookCard({ book, onPress }) {
 
 const styles = StyleSheet.create({
   card: {
-    flexDirection: 'row',
     backgroundColor: colors.card,
-    borderRadius: 10,
-    marginHorizontal: 16,
-    marginVertical: 8,
-    padding: 12,
-    elevation: 2,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
+    borderRadius: 16,
+    margin: 8,
+    flex: 1,
+    overflow: 'hidden',
+    elevation: 4,
+    shadowColor: colors.primary,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    borderWidth: 1,
+    borderColor: colors.border,
   },
   cover: {
-    width: 70,
-    height: 100,
-    borderRadius: 6,
-    backgroundColor: colors.border,
+    width: '100%',
+    height: 180,
+    resizeMode: 'cover',
   },
   noCover: {
-    width: 70,
-    height: 100,
-    borderRadius: 6,
+    width: '100%',
+    height: 180,
     backgroundColor: colors.border,
     justifyContent: 'center',
     alignItems: 'center',
   },
   noCoverText: {
-    fontSize: 10,
-    color: colors.subtext,
+    fontSize: 50,
   },
   info: {
-    flex: 1,
-    marginLeft: 12,
-    justifyContent: 'center',
+    padding: 10,
   },
   title: {
-    fontSize: 15,
+    fontSize: 13,
     fontWeight: 'bold',
     color: colors.text,
     marginBottom: 4,
   },
   author: {
-    fontSize: 13,
+    fontSize: 11,
     color: colors.subtext,
-    marginBottom: 4,
+    marginBottom: 6,
   },
-  year: {
-    fontSize: 12,
-    color: colors.primary,
+  yearBadge: {
+    backgroundColor: colors.primary,
+    borderRadius: 20,
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    alignSelf: 'flex-start',
+  },
+  yearText: {
+    color: colors.white,
+    fontSize: 10,
+    fontWeight: 'bold',
   },
 });
