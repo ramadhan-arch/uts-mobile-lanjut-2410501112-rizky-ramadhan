@@ -43,11 +43,11 @@ Aplikasi mobile untuk menemukan dan menyimpan buku favorit kamu!
 
 | Home | Detail | Favorit |
 |------|--------|---------|
-| ![Home](screenshots/home.jpg) | ![Detail](screenshots/detail.jpg) | ![Favorit](screenshots/favorites.jpg) |
+| ![Home](screenshots/home.jpeg) | ![Detail](screenshots/detail.jpeg) | ![Favorit](screenshots/favorites.jpeg) |
 
 | Search | About |
 |--------|-------|
-| ![Search](screenshots/search.jpg) | ![About](screenshots/about.jpg) |
+| ![Search](screenshots/search.jpeg) | ![About](screenshots/about.jpeg) |
 
 ---
 
